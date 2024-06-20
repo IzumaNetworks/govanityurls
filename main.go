@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//+build !appengine
+//go:build !appengine
+// +build !appengine
 
 package main
 
 import (
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
 )
@@ -31,19 +31,23 @@ func main() {
 	case 2:
 		configPath = os.Args[1]
 	default:
-		log.Fatal("usage: govanityurls [CONFIG]")
+		Infof("usage: govanityurls [CONFIG]")
+		os.Exit(2)
 	}
 	vanity, err := ioutil.ReadFile(configPath)
 	if err != nil {
-		log.Fatal(err)
+		Errorf("error: %v", err)
+		os.Exit(1)
 	}
 	h, err := newHandler(vanity)
 	if err != nil {
-		log.Fatal(err)
+		Errorf("error: %v", err)
+		os.Exit(1)
 	}
 	http.Handle("/", h)
 	if err := http.ListenAndServe(":8080", nil); err != nil {
-		log.Fatal(err)
+		Errorf("error: %v", err)
+		os.Exit(1)
 	}
 }
 

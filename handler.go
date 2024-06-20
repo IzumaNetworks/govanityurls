@@ -97,6 +97,7 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	current := r.URL.Path
 	pc, subpath := h.paths.find(current)
 	if pc == nil && current == "/" {
+		Infof("Serving index for %s from client %s at %s", r.Host, r.RemoteAddr, r.URL.Path)
 		h.serveIndex(w, r)
 		return
 	}
@@ -106,6 +107,7 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Cache-Control", h.cacheControl)
+	Infof("Serving vanity import for %s from client %s at %s", r.Host, r.RemoteAddr, r.URL.Path)
 	if err := vanityTmpl.Execute(w, struct {
 		Import  string
 		Subpath string
