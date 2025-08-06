@@ -10,6 +10,14 @@ paths:
   /cluster-api-provider-nested:
     repo: https://github.com/IzumaNetworks/cluster-api-provider-nested
 
+  /migratetools:
+    repo: https://github.com/IzumaNetworks/migratetools
+
+  /statusfy:
+    repo: https://github.com/IzumaNetworks/statusfy
+
+  /izcr:
+    repo: https://github.com/IzumaNetworks/izcr
   # /gofail:
   #   repo: https://github.com/etcd-io/gofail
 
